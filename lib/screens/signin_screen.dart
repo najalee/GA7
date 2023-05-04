@@ -1,3 +1,4 @@
+import 'package:charity_app/screens/forgotPassword_screen.dart';
 import 'package:charity_app/utils/colors_utils.dart';
 import 'package:charity_app/reusable_widgets/reusable_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
           "Welcome To UTD Treasures",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
           width: MediaQuery.of(context).size.width,
@@ -52,8 +54,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   reusableTextField("Enter Password", Icons.lock_outline, true,
                       _passwordTextController),
+                  SizedBox(height: 5),
+                  resetPasswordOption(),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   signInSignUpButton(context, true, () {
                     FirebaseAuth.instance
@@ -69,7 +73,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       print("Error on Sign In");
                     });
                   }),
-                  signUpOption()
+                  signUpOption(),
+                  // resetPasswordOption()
                 ],
               ),
             ),
@@ -94,6 +99,29 @@ class _SignInScreenState extends State<SignInScreen> {
                 color: Color(0xFFF29100), fontWeight: FontWeight.bold),
           ),
         )
+      ],
+    );
+  }
+
+  Row resetPasswordOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Forgot your ", style: TextStyle(color: Colors.black)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ForgotPasswordScreen()));
+          },
+          child: const Text(
+            "password",
+            style: TextStyle(
+                color: Color(0xFFF29100), fontWeight: FontWeight.bold),
+          ),
+        ),
+        Text("? ", style: TextStyle(color: Colors.black)),
       ],
     );
   }
